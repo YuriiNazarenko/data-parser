@@ -260,6 +260,17 @@ Threads: 8, execution time: 648 ms
 | 8       | 391 ms   | 1.468x      |
 
 
+## JsonOrderGenerator
+
+JsonOrderGenerator — утилітний клас для генерації випадкових тестових даних для об’єктів Order у форматі JSON. 
+
+Основні можливості:
+
+- Генерує випадкові замовлення з полями id, orderNumber, orderDate, status, totalAmount, deliveryAddress, paymentMethod, clientId.
+- Підтримує вкладені об’єкти, наприклад Address з city, street, houseNumber.
+- Зберігає дані у JSON-файли в обрану папку.
+
+
 
 
 
