@@ -7,8 +7,12 @@
 
 ### Ключові особливості
 
-- **Потокова обробка** — використання Jackson Streaming API для ефективної роботи з великими файлами
-- **Паралельне виконання** — thread pool для розподіленої обробки даних
+- **Потокова обробка JSON** — Jackson Streaming API дозволяє ефективно працювати з великими файлами без завантаження всього в пам’ять.
+- **Багатопотокова обробка** — використання thread pool для паралельної обробки файлів у директорії.
+- **Гнучкий формат вхідних даних** — підтримка як масивів JSON-об’єктів, так і одиночних JSON-записів.
+- **Підтримка складних атрибутів** — значення атрибутів можуть містити списки (розділені комами), кожне з яких обробляється окремо.
+- **Генерація звітів** — автоматичне формування XML-файлів зі статистикою.
+
 
 ## Предметна область
 
@@ -54,8 +58,8 @@ DataParser/
 │   │   ├── java/
 │   │   │   ├── edu/
 │   │   │       ├── internship/
-│   │   │           ├── cli/
-│   │   │           │   └── CommandLineArgsValidator.java
+│   │   │           ├── config/
+│   │   │           │   └── AppConfig.java
 │   │   │           ├── model/
 │   │   │           │   ├── Address.java
 │   │   │           │   ├── Client.java
@@ -64,8 +68,7 @@ DataParser/
 │   │   │           │   ├── JsonFileParser.java
 │   │   │           │   └── JsonFileProcessor.java
 │   │   │           ├── report/
-│   │   │           │   ├── XMLReportGenerator.java
-│   │   │           │   └── refactor
+│   │   │           │   └── XMLReportGenerator.java
 │   │   │           ├── testutils/
 │   │   │           │   └── JsonOrderGenerator.java
 │   │   │           └── Main.java
@@ -74,13 +77,12 @@ DataParser/
 │   │           └── orders-test.json
 │   ├── test/
 │       ├── java/
-│           ├── edu/
-│               ├── internship/
-│                   ├── parser/
-│                   │   ├── JsonFileParserTest.java
-│                   │   └── JsonFileProcessorTest.java
-│                   ├── report/
-│                       └── XMLReportGeneratorTest.java
+│           ├── internship/
+│               ├── parser/
+│               │   ├── JsonFileParserTest.java
+│               │   └── JsonFileProcessorTest.java
+│               ├── report/
+│                   └── XMLReportGeneratorTest.java
 ├── README.MD
 ├── dependency-reduced-pom.xml
 └── pom.xml
@@ -175,10 +177,10 @@ DataParser/
 
 ## Використання
 
-### Компіляція
+### Компіляція та створення JAR
 
 ```bash
-mvn clean compile
+mvn clean package
 ```
 
 ### Запуск
@@ -230,10 +232,12 @@ Threads: 8, execution time: 648 ms
 
 ### Набір даних
 
-- Файлів: 3
-- Записів на файл: 100_000
-- Загальна кількість: 300_000
-- Розмір: ~110 MB
+- Файлів: 8
+- Записів на файл: 50_000
+- Загальна кількість: 400_000
+- Розмір: ~138.4 MB
+
+
 
 ### Результати:
 
@@ -241,10 +245,10 @@ Threads: 8, execution time: 648 ms
 
 | Потоків | Час (мс) | Прискорення |
 |---------|----------|-------------|
-| 1       | 470 ms   | 1.00x       |
-| 2       | 433 ms   | 1.085x      |
-| 4       | 412 ms   | 1.14x       |
-| 8       | 341 ms   | 1.378x      |
+| 1       | 538 ms   | 1.00x       |
+| 2       | 400 ms   | 1.345x      |
+| 4       | 358 ms   | 1.5x        |
+| 8       | 326 ms   | 1.65x       |
 
 ---
 
@@ -254,10 +258,10 @@ Threads: 8, execution time: 648 ms
 
 | Потоків | Час (мс) | Прискорення |
 |---------|----------|-------------|
-| 1       | 574 ms   | 1.00x       |
-| 2       | 471 ms   | 1.218x      |
-| 4       | 424 ms   | 1.353x      |
-| 8       | 391 ms   | 1.468x      |
+| 1       | 671 ms   | 1.00x       |
+| 2       | 495 ms   | 1.355x      |
+| 4       | 483 ms   | 1.389x      |
+| 8       | 462 ms   | 1.452x      |
 
 
 ## JsonOrderGenerator
